@@ -1,7 +1,23 @@
-# Vue 3 + Vite
+# Vue 3 后台管理系统
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+### 暂定技术 :
+ - vue3 
+ - vite
+ - element-push 
+ - kao2
+ - mongoDB
+ - axios
+ - vuex
+ - webScoket
+### 实现功能
+ - 登陆JWT
+ - 部门权限 
+ - 审批流 
+ - 表格 CURD 
 
-## Recommended IDE Setup
+### 项目启动 
+``` JavaScript
+    yarn 
+    yarn dev
+```
 
-- [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
