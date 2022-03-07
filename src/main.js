@@ -1,9 +1,8 @@
 import {createApp} from 'vue'
 import App from './App.vue'
 import router from './router'
-import config from "./config"
 const app = createApp(App);
-import axios from "axios"
+import request from "./utils/request"
 
 // element-plus
 import ElementPlus from 'element-plus'
@@ -19,10 +18,10 @@ console.log('环境变量 ==> ', import.meta.env);
 //     SSR: false
 // }
 
-// axios
-axios.get(config.mockApi + '/login').then((res)=>{
-    console.log(res.data);
-})
+// 挂载全局 request
+app.config.globalProperties.$request = request
+
+
 
 //app.use( 组件 )这个必须在mount('#app')前面，不然会导致可能无法渲染
 app
