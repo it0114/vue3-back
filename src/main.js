@@ -1,8 +1,10 @@
 import {createApp} from 'vue'
 import App from './App.vue'
 import router from './router'
+
 const app = createApp(App);
 import request from "./utils/request"
+import storage from "./utils/storage"
 
 // element-plus
 import ElementPlus from 'element-plus'
@@ -18,9 +20,9 @@ console.log('环境变量 ==> ', import.meta.env);
 //     SSR: false
 // }
 
-// 挂载全局 request
+// 挂载全局
 app.config.globalProperties.$request = request
-
+app.config.globalProperties.$storage = storage
 
 
 //app.use( 组件 )这个必须在mount('#app')前面，不然会导致可能无法渲染

@@ -31,6 +31,14 @@ const routes = [
                 },
                 component: () => import('../components/Login.vue'),
             },
+            {
+                name: 'table',
+                path: '/table',
+                meta:{
+                    title:'登陆页'
+                },
+                component: () => import('../components/table.vue'),
+            },
         ]
     },
     {

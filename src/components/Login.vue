@@ -15,9 +15,13 @@ export default {
     //       console.log(res);
     //     })
 
-    this.$request.get('/login',{name:'zhangsan'},'get').then(res=>{
-      console.log(res);
-    })
+    // this.$request.get('/login',{name:'zhangsan'},'get').then(res=>{
+    //   console.log(res);
+    // })
+
+    this.$storage.setItem('info','tom1')
+
+
   }
 }
 
