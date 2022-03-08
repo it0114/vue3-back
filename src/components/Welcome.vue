@@ -1,9 +1,13 @@
 <template>
-  <p>欢迎</p>
+  <div class="welcome">
+    欢迎
+  </div>
 </template>
 <script setup>
 </script>
 
-<style scoped>
+<style scoped class="scss">
+.welcome{
 
+}
 </style>

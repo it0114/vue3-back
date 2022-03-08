@@ -17,7 +17,7 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 
 // 查看环境变量
-console.log('环境变量 ==> ', import.meta.env);
+// console.log('环境变量 ==> ', import.meta.env);
 // import.meta.env = {  // 返回值
 //     BASE_URL: "/"
 //     DEV: true

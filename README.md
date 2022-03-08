@@ -9,6 +9,8 @@
  - axios
  - vuex
  - webScoket
+ - tailwind
+
 ### 实现功能
  - 登陆JWT
  - 部门权限 
