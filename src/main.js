@@ -6,6 +6,12 @@ const app = createApp(App);
 import request from "./utils/request"
 import storage from "./utils/storage"
 
+// reset
+import "./assets/style/reset.css"
+
+// tailwind
+import './style/tailwind.css'
+
 // element-plus
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
