@@ -4,7 +4,7 @@
  - vue3 
  - vite
  - element-push 
- - kao2
+ - kao2   (https://github.com/it0114/manager-server)
  - mongoDB
  - axios
  - vuex
