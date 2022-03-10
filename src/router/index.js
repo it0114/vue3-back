@@ -21,15 +21,7 @@ const routes = [
                 meta:{
                     title:'欢迎页'
                 },
-                component: () => import('../components/Welcome.vue'),
-            },
-            {
-                name: 'login',
-                path: '/login',
-                meta:{
-                    title:'登陆页'
-                },
-                component: () => import('../components/Login.vue'),
+                component: () => import('../views/Welcome.vue'),
             },
             {
                 name: 'table',
@@ -40,6 +32,14 @@ const routes = [
                 component: () => import('../components/table.vue'),
             },
         ]
+    },
+    {
+        name: 'login',
+        path: '/login',
+        meta:{
+            title:'登陆页'
+        },
+        component: () => import('../views/Login.vue'),
     },
     {
         path: '/:catchAll(.*)',  // 导出必须使用 catchAll 正则匹配
