@@ -3,7 +3,7 @@
 ### 暂定技术 :
  - vue3 
  - vite
- - element-push 
+ - element-plus
  - kao2   (https://github.com/it0114/manager-server)
  - mongoDB
  - axios
