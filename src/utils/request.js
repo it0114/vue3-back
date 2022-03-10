@@ -46,8 +46,13 @@ service.interceptors.response.use((res) => {
 function request(options) {
     options.method = options.method || 'get'
 
-    if (options.methods.toLowerCase() === 'get') {
+    if (options.method.toLowerCase() === 'get') {
         options.params = options.data
+    }
+
+    // 局部 mock
+    if (typeof options.mock !== 'undefined') {
+        config.mock = options.mock
     }
 
     if (config.env === 'prod') {
@@ -65,7 +70,7 @@ function request(options) {
         return request({
             url,
             data,
-            methods:item,
+            method: item,
             ...options
         })
     }
