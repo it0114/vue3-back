@@ -9,7 +9,9 @@
               type="text"
               :prefix-icon="User"
               clearable
-              v-model='userData.userName'/>
+              v-model='userData.userName'
+              placeholder="请输入账号"
+          />
         </el-form-item>
         <el-form-item prop="userPwd">
           <span>密码 : </span>
@@ -19,6 +21,7 @@
               clearable
               :prefix-icon="Tickets"
               v-model="userData.userPwd"
+              placeholder="请输入密码"
           />
         </el-form-item>
         <el-form-item>
@@ -90,25 +93,31 @@ export default {
 .login-wrapper {
   width: 100vw;
   height: 100vh;
-  background: #F5F7FA;
+  background: url("src/assets/images/login-bg.jpg") no-repeat 100%;
   position: relative;
 
   .modal {
     width: 400px;
     border-radius: 4px;
-    border: 1px solid #ccc;
+    //border: 1px solid #ccc;
     padding: 20px;
     box-sizing: border-box;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: #fff;
+    background: rgba(0, 0, 0, 0.1);
+    color: #ffffff;
 
     .title {
       width: 100%;
       text-align: center;
       font-size: 20px;
+    }
+
+    ::v-deep .el-input__inner {
+      background: transparent !important;
+      color: #fff;
     }
   }
 }
