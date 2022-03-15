@@ -22,6 +22,7 @@
               :prefix-icon="Tickets"
               v-model="userData.userPwd"
               placeholder="请输入密码"
+              @keyup.enter="handlerLogin"
           />
         </el-form-item>
         <el-form-item>
@@ -90,34 +91,29 @@ export default {
 </script>
 
 <style scoped lang="scss">
+
 .login-wrapper {
   width: 100vw;
   height: 100vh;
-  background: url("src/assets/images/login-bg.jpg") no-repeat 100%;
+  background: #F5F7FA;
   position: relative;
 
   .modal {
     width: 400px;
     border-radius: 4px;
-    //border: 1px solid #ccc;
+    border: 1px solid #ccc;
     padding: 20px;
     box-sizing: border-box;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: rgba(0, 0, 0, 0.1);
-    color: #ffffff;
+    background: #fff;
 
     .title {
       width: 100%;
       text-align: center;
       font-size: 20px;
-    }
-
-    ::v-deep .el-input__inner {
-      background: transparent !important;
-      color: #fff;
     }
   }
 }
