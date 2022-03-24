@@ -6,9 +6,14 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
 export default defineConfig({
     server: {
-        host:'127.0.0.1', // 启动时使用的路径 localhost
+        host:'localhost', // 启动时使用的路径 localhost
         port: '8080', // 指定端口号
         open:'/', // 启动打开页面
+        proxy:{
+            '/api':{
+                target:'http://localhost:3000'
+            }
+        }
     },
     plugins: [
         vue(),
