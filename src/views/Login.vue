@@ -78,19 +78,13 @@ export default {
       // 1. 校验
       this.$refs.userForm.validate(async (valid) => {
         if (valid) {
-          let res = await this.$api.login(this.userData)
+          let res = await this.$api.postLogin(this.userData)
           // console.log(res);
           this.$store.commit('saveUserInfo', res)
           await this.$router.push("/welcome")
         }
       })
     },
-    // 校验表单
-
-
-
-
-
   }
 
 }
