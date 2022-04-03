@@ -84,7 +84,13 @@ export default {
           await this.$router.push("/welcome")
         }
       })
-    }
+    },
+    // 校验表单
+
+
+
+
+
   }
 
 }
