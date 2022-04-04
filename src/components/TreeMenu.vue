@@ -1,3 +1,16 @@
+
+<!--
+多级菜单渲染
+
+思路 :
+
+1. 获取到传过来的 userMenu 数据
+2. 使用 el-sub-menu 进行遍历, 判断他是否有 children , 如果有的情况并且 menuType 的值 === 1 , name则生成一个菜单组
+3. 在进行一个递归判断是否有多级的 children , 有的话继续生成下一级的菜单
+4. 判断到了最后一个层级, 所需要的肯定是一个可点击的按钮, 而不是一个组, 所以则需要用 el-menu-item 来进行渲染
+
+-->
+
 <template>
   <template v-for="menu in userMenu">
     <el-sub-menu

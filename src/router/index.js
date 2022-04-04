@@ -10,24 +10,44 @@ const routes = [
         name: 'home',
         path: '/',
         redirect: '/welcome', // 必须使用 path 或者 name
-        meta:{
-            title:'首页'
+        meta: {
+            title: '首页'
         },
         component: () => import('../components/Home.vue'),
         children: [
             {
                 name: 'welcome',
                 path: '/welcome',
-                meta:{
-                    title:'欢迎页'
+                meta: {
+                    title: '欢迎页'
                 },
                 component: () => import('../views/Welcome.vue'),
+                children: [
+                    {
+                        name: 'system',
+                        path: '/system',
+                        meta: {
+                            title: '系统管理'
+                        },
+                        component: () => import('../views/System.vue'),
+                        children: [
+                            {
+                                name: 'user',
+                                path: 'user',
+                                meta: {
+                                    title: '用户管理'
+                                },
+                                component: () => import('../views/User.vue'),
+                            }
+                        ]
+                    }
+                ]
             },
             {
                 name: 'table',
                 path: '/table',
-                meta:{
-                    title:'登陆页'
+                meta: {
+                    title: '登陆页'
                 },
                 component: () => import('../components/table.vue'),
             },
@@ -36,8 +56,8 @@ const routes = [
     {
         name: 'login',
         path: '/login',
-        meta:{
-            title:'登陆页'
+        meta: {
+            title: '登陆页'
         },
         component: () => import('../views/Login.vue'),
     },
@@ -49,7 +69,7 @@ const routes = [
 ]
 
 const router = createRouter({
-    history:createWebHashHistory(),  // 选择模式
+    history: createWebHashHistory(),  // 选择模式
     routes
 })
 

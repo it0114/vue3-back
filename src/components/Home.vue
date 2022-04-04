@@ -15,6 +15,7 @@
             @close="handleClose"
             router
         >
+          <!-- 递归生成菜单 -->
           <TreeMenu :userMenu="userMenu"></TreeMenu>
         </el-menu>
       </div>
@@ -25,9 +26,8 @@
           <el-icon>
             <icon-menu/>
           </el-icon>
-          <el-breadcrumb :separator-icon="ArrowRight">
-            <el-breadcrumb-item :to="{ path: '/' }">面包屑</el-breadcrumb-item>
-          </el-breadcrumb>
+          <!-- 生成面包屑 -->
+          <BreadCrumb></BreadCrumb>
         </div>
         <div class="user-info cursor-pointer">
           <el-badge :is-dot="noticeCount > 0">
@@ -62,6 +62,7 @@
 
 <script setup>
 import TreeMenu from "./TreeMenu.vue";
+import BreadCrumb from "./BreadCrumb.vue";
 // 注意 : useRouter 和 useRoute 不同
 import {useRouter} from "vue-router"
 
@@ -90,7 +91,13 @@ export default {
       userInfo: this.$store.state.userInfo, // 当前用户信息
       noticeCount: 0, // 通知数量
       userMenu: [], // 用户菜单
-      activeMenu: location.hash.slice(1), // 当前激活菜单
+      // activeMenu: location.hash.slice(1), // 当前激活菜单
+    }
+  },
+  computed:{
+    // 当前激活菜单
+    activeMenu() {
+      return location.hash.slice(1)
     }
   },
   mounted() {
