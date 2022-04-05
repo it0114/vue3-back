@@ -22,26 +22,14 @@ const routes = [
                     title: '欢迎页'
                 },
                 component: () => import('../views/Welcome.vue'),
-                children: [
-                    {
-                        name: 'system',
-                        path: '/system',
-                        meta: {
-                            title: '系统管理'
-                        },
-                        component: () => import('../views/System.vue'),
-                        children: [
-                            {
-                                name: 'user',
-                                path: 'user',
-                                meta: {
-                                    title: '用户管理'
-                                },
-                                component: () => import('../views/User.vue'),
-                            }
-                        ]
-                    }
-                ]
+            },
+            {
+                name: 'user',
+                path: '/user',
+                meta: {
+                    title: '用户管理'
+                },
+                component: () => import('../views/User.vue'),
             },
             {
                 name: 'table',

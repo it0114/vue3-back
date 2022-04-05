@@ -14,6 +14,9 @@ import api from "./api"
 // reset
 import "./assets/style/reset.css"
 
+// 通用样式
+import "./assets/style/index.scss"
+
 // tailwind
 import './style/tailwind.css'
 

@@ -6,7 +6,8 @@
         <div class="title">Vue3 通用后台管理系统</div>
         <div class="desc">Vue3.x + ElementPlus + Kao2 + Mongodb</div>
       </div>
-      <div class="right"></div>
+      <div class="right">
+      </div>
     </div>
   </div>
 </template>

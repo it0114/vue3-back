@@ -18,7 +18,7 @@ export default {
             method: 'get',
             url: '/leave/count',
             data: {},
-            // mock: true
+            mock: true
         })
     },
     // 动态获取菜单
@@ -27,7 +27,7 @@ export default {
             method: 'get',
             url: '/menu/list',
             data: {},
-            // mock: true
+            mock: true
         })
     },
 }
