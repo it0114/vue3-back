@@ -7,6 +7,7 @@ import axios from "axios"
 import config from "../config"
 import {ElMessage} from "element-plus"
 import router from "../router"
+import storage from "../utils/storage"
 
 // 无效token
 const TOKEN_INVALID = 'Token认证失败, 请重新登陆'
@@ -22,7 +23,13 @@ const service = axios.create({
 // 请求拦截
 service.interceptors.request.use((req) => {
     const headers = req.headers
-    if (!headers.Authorization) headers.Authorization = 'Bear Yam'
+    let token = ''
+    try {
+        token = storage.getItem('userInfo').token
+    } catch (e) {
+        token = 'yam'
+    }
+    if (!headers.Authorization) headers.Authorization = 'Bearer ' + token
     return req
 })
 

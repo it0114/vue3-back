@@ -21,7 +21,7 @@ const EnvConfig = {
 
 export default {
     env,
-    namespace:'manager',
-    mock:true, // 是否启动全局 mock
+    namespace: 'manager',
+    mock: false, // 是否启动全局 mock
     ...EnvConfig[env]
 }

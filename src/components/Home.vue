@@ -2,7 +2,7 @@
   <div class="basic-layout">
     <div class="nav-side">
       <div>
-        <div class="logo">
+        <div class="logo" v-show="!isCollapse">
           <h1>Manager System</h1>
         </div>
         <el-menu
@@ -12,6 +12,7 @@
             :default-active="activeMenu"
             text-color="#fff"
             @open="handleOpen"
+            :collapse="isCollapse"
             @close="handleClose"
             router
         >
@@ -23,9 +24,12 @@
     <div class="content-right">
       <div class="nav-top">
         <div class="bread">
-          <el-icon>
-            <icon-menu/>
-          </el-icon>
+
+          <div class="isCollapse mr-3" @click="handleIsCollapse">
+            <e-icon icon-name="el-icon-s-unfold" v-if="isCollapse"/>
+            <e-icon icon-name="el-icon-s-fold" v-else/>
+          </div>
+
           <!-- 生成面包屑 -->
           <BreadCrumb></BreadCrumb>
         </div>
@@ -63,9 +67,6 @@
 <script setup>
 import TreeMenu from "./TreeMenu.vue";
 import BreadCrumb from "./BreadCrumb.vue";
-// 注意 : useRouter 和 useRoute 不同
-import {useRouter} from "vue-router"
-
 import {
   ArrowRight,
   Bell,
@@ -73,14 +74,6 @@ import {
   Menu as IconMenu,
 } from '@element-plus/icons-vue'
 
-const router = useRouter()
-
-const handlerGoLogin = () => {
-  router.push('/login')
-}
-const handlerGoWelcome = () => {
-  router.push('/welcome')
-}
 </script>
 
 <script>
@@ -92,9 +85,10 @@ export default {
       noticeCount: 0, // 通知数量
       userMenu: [], // 用户菜单
       // activeMenu: location.hash.slice(1), // 当前激活菜单
+      isCollapse: false // 是否折叠菜单
     }
   },
-  computed:{
+  computed: {
     // 当前激活菜单
     activeMenu() {
       return location.hash.slice(1)
@@ -106,6 +100,11 @@ export default {
     console.log(this.userInfo);
   },
   methods: {
+    // 菜单收缩
+    handleIsCollapse() {
+      this.isCollapse = !this.isCollapse
+    },
+
     // 展开菜单
     handleOpen(key, keyPath) {
       // console.log(key, keyPath);
@@ -152,7 +151,7 @@ export default {
 
   .nav-side {
     position: fixed;
-    width: 200px;
+    width: v-bind("isCollapse ? '60px' : '200px'");
     height: 100vh;
     background: #282A36;
     overflow-y: auto;
@@ -170,7 +169,8 @@ export default {
   }
 
   .content-right {
-    margin-left: 200px;
+    margin-left: v-bind("isCollapse ? '60px' : '200px'");
+    transition: marginLeft 0.3s;
 
     .nav-top {
       background: #fff;
