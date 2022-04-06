@@ -17,6 +17,7 @@
 <style scoped lang="scss">
 .welcome {
   height: 100%;
+  background: #fff;
   .content {
     display: flex;
     justify-content: space-between;

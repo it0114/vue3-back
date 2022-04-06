@@ -56,9 +56,7 @@
         </div>
       </div>
       <div class="wrapper">
-        <div class="main-page">
           <router-view></router-view>
-        </div>
       </div>
     </div>
   </div>
@@ -208,14 +206,6 @@ export default {
       padding: 20px;
       box-sizing: border-box;
 
-      .main-page {
-        width: 100%;
-        height: 100%;
-        background: #fff;
-        border-radius: 4px;
-        padding: 10px;
-        box-sizing: border-box;
-      }
     }
   }
 }

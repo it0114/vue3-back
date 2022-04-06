@@ -25,11 +25,44 @@
     </div>
     <div class="base-table">
       <div class="action">
-        <el-table :data="tableData" style="width: 100%" border stripe height="250">
-          <el-table-column prop="date" label="Date"/>
-          <el-table-column prop="name" label="Name"/>
-          <el-table-column prop="address" label="Address"/>
-        </el-table>
+        <el-button type="primary">新增</el-button>
+        <el-button type="danger">批量删除</el-button>
+      </div>
+      <el-table
+          :data="userList"
+          border
+          stripe
+          height="250"
+          tooltip-effect="dark"
+          style="width: 100%"
+          @selection-change="handleSelectionChange">
+        <el-table-column
+            type="selection"
+            width="55" />
+        <el-table-column
+            :prop="item.prop"
+            :label="item.label"
+            :width="item.width ? item.width : 'auto'"
+            v-for="(item,index) in columns"
+            :key="index"
+        />
+        <el-table-column
+            fixed="right"
+            align="center"
+            label="操作"
+            width="150">
+          <template #default>
+            <el-button type="primary" size="small">编辑</el-button>
+            <el-button type="danger" size="small">删除</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+      <div class="pagination">
+        <el-pagination
+            background
+            layout="prev, pager, next"
+            :total="1000">
+        </el-pagination>
       </div>
     </div>
   </div>
@@ -39,30 +72,50 @@
 import {ref, onMounted} from 'vue'
 
 const user = ref({
-  userId: '',
-  userName: '',
-  state: ''
+  userId: '123',
+  userName: '123',
+  state: '123'
 })
-const tableData = ref([
+const columns = ref([
   {
-    date: '2016-05-03',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
+    prop: 'userId',
+    label: '用户ID'
   },
   {
-    date: '2016-05-02',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
+    prop: 'userName',
+    label: '用户名称'
   },
   {
-    date: '2016-05-04',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
+    prop: 'userEmail',
+    label: '用户邮箱',
+    width: '200'
   },
   {
-    date: '2016-05-01',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
+    prop: 'role',
+    label: '用户角色'
+  },
+  {
+    prop: 'state',
+    label: '用户状态'
+  },
+  {
+    prop: 'createTime',
+    label: '注册时间'
+  },
+  {
+    prop: 'lastLoginTime',
+    label: '最后登录时间'
+  },
+])
+const userList = ref([
+  {
+    userId: '1',
+    userName: '张三',
+    userEmail: '1694432338@qq.com',
+    role: '前端工程师',
+    state: '在职',
+    createTime: '2019-09-09',
+    lastLoginTime: '2021-09-09',
   },
 ])
 </script>
