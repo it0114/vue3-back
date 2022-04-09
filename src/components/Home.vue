@@ -95,7 +95,7 @@ export default {
   mounted() {
     this.getNoticeCount()
     this.getMenuList()
-    console.log(this.userInfo);
+    console.log(this.userInfo)
   },
   methods: {
     // 菜单收缩

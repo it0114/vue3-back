@@ -49,6 +49,9 @@ app.config.globalProperties.$request = request
 app.config.globalProperties.$storage = storage
 app.config.globalProperties.$api = api
 
+// 挂载全局2
+window.$api = api
+
 
 //app.use( 组件 )这个必须在mount('#app')前面，不然会导致可能无法渲染
 app

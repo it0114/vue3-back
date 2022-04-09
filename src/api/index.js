@@ -30,5 +30,14 @@ export default {
             mock: true
         })
     },
+    // 获取用户列表
+    getUserList(params) {
+        return request({
+            method: 'get',
+            url: '/users/list',
+            data: params,
+            mock: true
+        })
+    },
 }
 

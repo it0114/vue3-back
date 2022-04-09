@@ -10,9 +10,9 @@
   "dependencies": {
     "@element-plus/icons-vue": "^1.1.4",
     "axios": "^0.26.0",
+    "dayjs": "^1.11.0",
     "e-icon-picker": "^2.0.9",
     "element-plus": "^2.0.4",
-    "install": "^0.13.0",
     "vue": "^3.2.25",
     "vue-router": "^4.0.13",
     "vuex": "^4.0.2"
