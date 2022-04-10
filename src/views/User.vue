@@ -32,9 +32,10 @@
           :data="userList"
           border
           stripe
-          height="500"
+          height="400"
           tooltip-effect="dark"
-          style="width: 100%"
+          style="width: 100%;"
+          class="el-table-box"
           @selection-change="handleSelectionChange"
       >
         <el-table-column
@@ -282,6 +283,5 @@ const handleReset = () => {
 
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
 </style>

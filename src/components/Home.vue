@@ -162,7 +162,7 @@ export default {
     height: 100vh;
     background: #282A36;
     overflow-y: auto;
-    transition: width 0.3s linear;
+    transition: width 0.3s;
     color: #fff;
 
     .logo {
@@ -177,7 +177,7 @@ export default {
 
   .content-right {
     margin-left: v-bind("isCollapse ? '60px' : '200px'");
-    transition: margin-left 0.3s linear;
+    transition: margin-left 0.3s;
 
     .nav-top {
       background: #fff;

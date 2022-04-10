@@ -39,13 +39,18 @@ const routes = [
                 },
                 component: () => import('../components/table.vue'),
             },
+            /*
+            * 注意点 :
+            * 如果你的 router 和文件的名称的大小写不一致 ,会导致热更新失效 (大小写敏感)
+            *
+            * */
             {
                 name: 'test-code',
                 path: '/test-code',
                 meta: {
                     title: '代码测试页面'
                 },
-                component: () => import('../components/testCode.vue'),
+                component: () => import('../components/TestCode.vue'),
             },
         ]
     },
