@@ -32,7 +32,7 @@ export default {
     }
   },
   mounted() {
-    console.log(this.$route.matched);
+    // console.log(this.$route.matched);
   },
   computed: {
     // 计算路由matched属性的meta中的title

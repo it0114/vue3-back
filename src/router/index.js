@@ -35,9 +35,17 @@ const routes = [
                 name: 'table',
                 path: '/table',
                 meta: {
-                    title: '登陆页'
+                    title: 'table测试页面'
                 },
                 component: () => import('../components/table.vue'),
+            },
+            {
+                name: 'test-code',
+                path: '/test-code',
+                meta: {
+                    title: '代码测试页面'
+                },
+                component: () => import('../components/testCode.vue'),
             },
         ]
     },

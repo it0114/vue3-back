@@ -39,6 +39,7 @@
               <bell/>
             </el-icon>
           </el-badge>
+          <!-- 下拉菜单 -->
           <el-dropdown trigger="click" @command="handleLogout">
             {{ userInfo.userName }}
             <el-icon class="el-icon--right">
@@ -56,7 +57,7 @@
         </div>
       </div>
       <div class="wrapper">
-          <router-view></router-view>
+        <router-view></router-view>
       </div>
     </div>
   </div>
@@ -93,14 +94,22 @@ export default {
     }
   },
   mounted() {
+    try {
+      this.isCollapse = this.$storage.getItem('isCollapse')
+    } catch (e) {
+      this.isCollapse = false
+      console.log(e);
+    }
+
     this.getNoticeCount()
     this.getMenuList()
-    console.log(this.userInfo)
+    // console.log(this.userInfo)
   },
   methods: {
     // 菜单收缩
     handleIsCollapse() {
       this.isCollapse = !this.isCollapse
+      this.$storage.setItem('isCollapse', this.isCollapse)
     },
 
     // 展开菜单
@@ -134,7 +143,7 @@ export default {
     async getMenuList() {
       try {
         this.userMenu = await this.$api.getMenuList()
-        console.log(this.userMenu);
+        // console.log(this.userMenu);
       } catch (e) {
         console.log(e)
       }
@@ -153,7 +162,7 @@ export default {
     height: 100vh;
     background: #282A36;
     overflow-y: auto;
-    transition: width 0.3s;
+    transition: width 0.3s linear;
     color: #fff;
 
     .logo {
@@ -168,7 +177,7 @@ export default {
 
   .content-right {
     margin-left: v-bind("isCollapse ? '60px' : '200px'");
-    transition: marginLeft 0.3s;
+    transition: margin-left 0.3s linear;
 
     .nav-top {
       background: #fff;
