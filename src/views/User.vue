@@ -48,6 +48,7 @@
             v-for="(item,index) in columns"
             :key="index"
             :align="item.align"
+            :formatter="item.formatter"
         />
         <el-table-column
             fixed="right"
@@ -125,12 +126,29 @@ let columns = $ref([
   {
     prop: 'role',
     label: '用户角色',
-    align: 'center'
+    align: 'left',
+    formatter: (row, column, value) => {
+      // console.log(row);
+      // console.log(column);
+      // console.log(value);
+      // return value === 0 ? '管理员' : '普通用户'
+      return {
+        0: '管理员',
+        1: '普通用户'
+      }[value]
+    }
   },
   {
     prop: 'state',
     label: '用户状态',
-    align: 'center'
+    align: 'center',
+    formatter: (row, column, value) => {
+      return {
+        1: '在职',
+        2: '离职',
+        3: '试用期'
+      }[value]
+    }
   },
   {
     prop: 'createTime',
@@ -164,11 +182,16 @@ onMounted(async () => {
 // 删除单条或者多条table数据
 const handleDelete = async (row) => {
   try {
-    await $api.postUserDelete({
+    let res = await $api.postUserDelete({
       userIds: [row.userId]
     })
-    ElMessage.success('删除成功')
-    await getUserList()
+    if (res.nModified > 0) {
+      ElMessage.success('删除成功')
+      batchDeleteList = []
+      await getUserList()
+    } else {
+      ElMessage.error('删除失败')
+    }
   } catch (e) {
     console.log(e);
   }
@@ -180,14 +203,18 @@ const handleBatchDelete = async () => {
     ElMessage.warning('请选择要删除的数据')
     return
   }
-  try{
-    await $api.postUserDelete({
+  try {
+    let res = await $api.postUserDelete({
       userIds: batchDeleteList
     })
-    ElMessage.success('删除成功')
-    batchDeleteList = []
-    await getUserList()
-  }catch (e) {
+    if (res.nModified > 0) {
+      ElMessage.success('删除成功')
+      batchDeleteList = []
+      await getUserList()
+    } else {
+      ElMessage.error('删除失败')
+    }
+  } catch (e) {
     console.log(e);
   }
 }
