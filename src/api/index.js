@@ -2,6 +2,7 @@
 * api 统一管理
 * */
 import request from "../utils/request";
+
 export default {
     // 登陆接口
     postLogin(params) {
@@ -35,6 +36,15 @@ export default {
         return request({
             method: 'get',
             url: '/users/list',
+            data: params,
+            mock: true
+        })
+    },
+    // 删除单条或者多条数据
+    postUserDelete(params) {
+        return request({
+            method: 'post',
+            url: '/users/delete',
             data: params,
             mock: true
         })
