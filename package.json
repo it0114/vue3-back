@@ -12,6 +12,7 @@
     "axios": "^0.26.0",
     "dayjs": "^1.11.0",
     "e-icon-picker": "^2.0.9",
+    "echarts": "^5.3.2",
     "element-plus": "^2.0.4",
     "vue": "^3.2.25",
     "vue-router": "^4.0.13",

@@ -50,7 +50,7 @@ const routes = [
                 meta: {
                     title: '代码测试页面'
                 },
-                component: () => import('../components/TestCode.vue'),
+                component: () => import('../components/TestCode/TestCode.vue'),
             },
         ]
     },

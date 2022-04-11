@@ -3,7 +3,7 @@
     <p>姓名 : {{ item.name }}</p>
     <p>年龄 : {{ item.age }}</p>
     <p>状态 : {{ item.formatState }}</p>
-    <div class="bg-red"></div>
+    <div class="bg-red" :style="styleVar"></div>
   </div>
 </template>
 
@@ -40,6 +40,12 @@ export default {
   * */
 
   computed: {
+    styleVar() {
+      return {
+        '--red': 'red',
+        '--height':'50px'
+      }
+    },
     formatList() {
       // 1. 用 if 方式
       // this.list.forEach(item=>{
@@ -101,7 +107,7 @@ export default {
 
 <style scoped>
 .bg-red {
-  background: red;
-  height: 10px;
+  background: var(--red);
+  height: var(--height);
 }
 </style>
