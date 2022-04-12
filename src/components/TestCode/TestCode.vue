@@ -17,12 +17,26 @@ export default {
     echartsInit() {
       // echarts
       let myChart = echarts.init(this.$refs.echartsBox);
-      let data = [70, 34, 60, 78, 69]
-      let titleName = ['测试1', '测试2', '测试3', '测试4', '测试5'];
-      let valData = [683, 234, 234, 523, 345]
-      let myColor = ['#5470c6', '#91cc75', '#fac858', '#ee6666', '#73c0de', '#3ba272', '#fc8452', '#9a60b4', '#ea7ccc']
+      let data = [100, 34, 60, 78, 69]  // 百分比
+      let valData = [683, 234, 234, 523, 345]  // 进度条
+      let titleName = ['测试1', '测试2', '测试3', '测试4', '测试5'];  // 名称
+      let colorList = [  // 颜色值
+        ['#00feff', '#0286ff'],
+        ['#ee6666', '#0076FF'],
+        ['#A69CEF', '#6C19DA'],
+        ['#73FFB2', '#00B92A'],
+      ]
+      let textColor = "#666"  // 文字颜色
+      let bgColor = '#e7e5e5' // 进度条背景颜色
+
+      // let dataOption = [
+      //   {name: '测试1', colors: ['#00feff', '#0286ff'], percentage: 100, value: 192}
+      // ]
+
+
+      let maxArr = (new Array(valData.length)).fill(100);
       let options = {
-        backgroundColor: '#282A36',
+        // backgroundColor: '#282A36',
         xAxis: {
           show: false
         },
@@ -41,15 +55,17 @@ export default {
             axisTick: {
               show: false
             },
+            // 左边的文字
             axisLabel: {
-              color: '#fff',
+              color: textColor,
+              fontSize: 16,
               formatter: function (value, index) {
                 return [
-                  '{lg|' + (index + 1) + '}' + '{title|' + value + '} '
+                  '{lg|' + (index + 1) + '}' + '　' + '{title|' + value + '} '
                 ].join('\n')
               },
-              // 左边的文字
               rich: {
+                // 最左边的小圆圈
                 lg: {
                   backgroundColor: '#42A5F5',
                   color: '#fff',
@@ -68,8 +84,8 @@ export default {
             inverse: true,
             data: valData,
             axisLabel: {
-              color: '#fff',
-              fontSize: 20,
+              color: textColor,
+              fontSize: 16,
             },
             axisLine: {
               show: false
@@ -80,52 +96,78 @@ export default {
             axisTick: {
               show: false
             },
-          }],
+          }
+        ],
         series: [
           {
             name: '外边框',
             type: 'bar',
             yAxisIndex: 1,
             barGap: '-100%',
-            data: [100, 100, 100, 100, 100],
-            barWidth: 40,
+            data: maxArr,
+            barWidth: 30,
+            //鼠标悬停时：
+            emphasis: {
+              itemStyle: {
+                color: bgColor,
+              }
+            },
             itemStyle: {
-              color: 'none',
-              borderColor: '#00c1de',
-              borderWidth: 3, // 边框线粗细
-              borderRadius: 40,
-            }
+              color: bgColor,
+              // borderColor: 'rgba(255,255,255,0.3)',
+              // borderWidth: 2, // 边框线粗细
+              borderRadius: 30,
+            },
+            zlevel:5
           },
           {
             name: '进度条',
             type: 'bar',
             yAxisIndex: 0,
             data: data,
-            barWidth: 40,
+            barWidth: 30,
             emphasis: {
               itemStyle: {
-                color: '#fff'
+                color: 'none'
               }
             },
             // 内环圆角
             itemStyle: {
               // 定义圆角
-              borderRadius: 40,
+              borderRadius: 30,
               // 定义颜色
+              // color: function (params) {
+              //   console.log(params);
+              //   const num = myColor.length;
+              //   return myColor[params.dataIndex % num]
+              // },
+              //每个柱子的颜色即为colorList数组里的每一项，如果柱子数目多于colorList的长度，则柱子颜色循环使用该数组
               color: function (params) {
-                const num = myColor.length;
-                return myColor[params.dataIndex % num]
-              },
+                let index = params.dataIndex;
+                if (params.dataIndex >= colorList.length) {
+                  index = params.dataIndex - colorList.length;
+                }
+                return new echarts.graphic.LinearGradient(0, 0, 1, 0,
+                    [
+                      {offset: 0, color: colorList[index][0]},
+                      {offset: 1, color: colorList[index][1]}
+                    ]);
+              }
             },
+            zlevel:6,
             // 百分比
             label: {
               show: true,
-              position: 'inside',
+              position: 'top',
               formatter: '{c}%'
             },
           },
         ]
       }
+      // 自动缩放
+      window.addEventListener('resize', () => {
+        myChart.resize();
+      })
       myChart.setOption(options);
     }
   }
@@ -135,7 +177,7 @@ export default {
 
 <style scoped>
 .echartsBox {
-  width: 100%;
-  height: 100%;
+  width: 1000px;
+  height: 500px;
 }
 </style>
