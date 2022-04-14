@@ -214,7 +214,6 @@ export default {
       background: #ECEEF1;
       padding: 20px;
       box-sizing: border-box;
-
     }
   }
 }

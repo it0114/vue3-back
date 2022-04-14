@@ -5,6 +5,11 @@
 <script>
 import * as echarts from 'echarts'
 
+/*
+* 备忘 :
+* 样例地址 : https://www.makeapie.cn/echarts
+* */
+
 export default {
   name: "TestCode",
   data() {
