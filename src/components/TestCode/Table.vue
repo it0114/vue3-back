@@ -116,6 +116,7 @@ export default {
     this.newData = tempNewData
   },
   methods: {
+    // 去重
     uniqueObj(arr, type) {
       const res = new Map()
       return arr.filter((a) => !res.has(a[type]) && res.set(a[type], 1))
