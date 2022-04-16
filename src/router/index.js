@@ -39,6 +39,22 @@ const testCodeRouter = [
         },
         component: () => import('../components/TestCode/Leaflet.vue'),
     },
+    {
+        name: 'edge-menu',
+        path: '/edge-menu',
+        meta: {
+            title: 'edge-menu 边缘菜单'
+        },
+        component: () => import('../components/TestCode/EdgeMenu.vue'),
+    },
+    {
+        name: 'draggable',
+        path: '/draggable',
+        meta: {
+            title: 'draggable 可拖拽列表'
+        },
+        component: () => import('../components/TestCode/Draggable.vue'),
+    },
 ]
 
 // 页面路由

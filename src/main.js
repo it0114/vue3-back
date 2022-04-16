@@ -52,6 +52,10 @@ app.config.globalProperties.$api = api
 // 挂载全局2
 window.$api = api
 
+// 捕获全局异常处理器
+app.config.errorHandler = (err, vm, info) => {
+    console.log('[全局异常]', err, vm, info)
+}
 
 //app.use( 组件 )这个必须在mount('#app')前面，不然会导致可能无法渲染
 app

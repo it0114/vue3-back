@@ -12,6 +12,7 @@ import "leaflet/dist/leaflet.css"
 * 阿里地图 : http://datav.aliyun.com/portal/school/atlas/area_selector
 * 地图JSON : https://hxkj.vip/demo/echartsMap/
 * 参考文章 : https://blog.csdn.net/summer_du/article/details/114363473
+* Leaflet 中文文档 : https://leafletjs.cn/reference-1.7.1.html
 *
 * */
 
@@ -96,7 +97,7 @@ export default {
         [22.535806795205925, 113.39723110198975]
       ]
       let markers = L.markerClusterGroup({
-        showCoverageOnHover:false, // 鼠标点击的时候是否显示边界
+        showCoverageOnHover: false, // 鼠标点击的时候是否显示边界
       });
       for (let i = 0; i < addressPoints.length; i++) {
         let a = addressPoints[i];
@@ -111,6 +112,9 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+#map-container{
+  border-radius: 10px;
+  overflow: hidden;
+}
 </style>

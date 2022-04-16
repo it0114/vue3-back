@@ -25,7 +25,7 @@
     </div>
     <div class="base-table">
       <div class="action">
-        <el-button type="primary">新增</el-button>
+        <el-button type="primary" @click="handleAddForm">新增</el-button>
         <el-button type="danger" @click="handleBatchDelete">批量删除</el-button>
       </div>
       <el-table
@@ -70,12 +70,73 @@
             :total="pager.total"
             @current-change="handleCurrentPageChange"
         />
-        <!--:page-count="pager.total"-->
-        <!--v-model:page-size="pager.pageSize"-->
-        <!--@size-change="handlePageSizeChange"-->
-        <!--v-model:current-page="pager.pageNum"-->
       </div>
     </div>
+    <!-- 弹窗 -->
+    <el-dialog v-model="userFromModalShow" title="新增用户数据">
+      <el-form
+          :model="userForm"
+          label-width="100px"
+          label-position="left"
+          ref="userFormRef"
+          :rules="rules"
+      >
+        <el-form-item label="用户名" prop="userName">
+          <el-input v-model="userForm.userName" placeholder="请输入用户名称"></el-input>
+        </el-form-item>
+        <el-form-item label="邮箱" prop="userEmail">
+          <el-input v-model="userForm.userEmail" placeholder="请输入邮箱">
+            <template #append>@yam.com</template>
+          </el-input>
+        </el-form-item>
+        <el-form-item label="手机号" prop="mobile">
+          <el-input v-model="userForm.mobile" placeholder="请输入手机号"></el-input>
+        </el-form-item>
+        <el-form-item label="岗位" prop="job">
+          <el-input v-model="userForm.job" placeholder="请输入岗位"></el-input>
+        </el-form-item>
+        <el-form-item label="状态" prop="state">
+
+          <el-radio-group v-model="userForm.state" style="width: 100%">
+            <el-radio border :label="1">在职</el-radio>
+            <el-radio border :label="2">离职</el-radio>
+            <el-radio border :label="3">试用期</el-radio>
+          </el-radio-group>
+          <!--<el-select v-model="userForm.state" style="width: 100%">-->
+          <!--  <el-option :value="1" label="在职"></el-option>-->
+          <!--  <el-option :value="2" label="离职"></el-option>-->
+          <!--  <el-option :value="3" label="试用期"></el-option>-->
+          <!--</el-select>-->
+
+        </el-form-item>
+        <el-form-item label="系统角色" prop="roleList">
+          <el-select
+              v-model="userForm.roleList"
+              style="width: 100%"
+              placeholder="请选择对应角色"
+          >
+            <el-option
+                v-for="item in userForm.roleList"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+            />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="所属部门" prop="deptId">
+          <el-cascader
+              style="width: 100%"
+              :options="[]"
+              placeholder="请选择所属部门"
+              :props="{checkStrictly : true,value:'_id',label:'deptName '}"
+              clearable/>
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <el-button type="primary" @click="handleSubmitForm()">确认</el-button>
+        <el-button @click="handleResetForm()">重置</el-button>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
@@ -89,11 +150,10 @@ import {
 import dayjs from "dayjs";
 import {ElMessage} from "element-plus";
 
+// 使用 $ref 可以直接用定义, 而不需要用 value 来改变
 // let count = $ref(0)
-//
 // console.log(count);  // 无value 包裹
 // console.log($$(count)); // 有 value 包裹
-//
 // let reactive1 = $ref({   // 可以直接写数组
 //   a: 1, b: 2, c: 3
 // })
@@ -103,11 +163,13 @@ import {ElMessage} from "element-plus";
 // console.log(reactive1.b);  // 获取
 // console.log($$(reactive1)); // 封装 proxy
 
+// 用户表单
 let user = $ref({
   userId: '',
   userName: '',
   state: 0
 })
+// 用户 table 表头
 let columns = $ref([
   {
     prop: 'userId',
@@ -162,12 +224,15 @@ let columns = $ref([
     width: '170',
   },
 ])
+// 用户 table 内容
 let userList = $ref([])
+// 分页器
 let pager = $ref({
   pageNum: 1, // 当前页码
   pageSize: 10, // 每页条数
   total: 20   // 总条数 (动态传入)
 })
+// 批量删除勾选的列表
 let batchDeleteList = $ref([]) // 批量删除 id
 
 // 其中包含了 main.js 里面的 config.globalProperties
@@ -280,6 +345,53 @@ const handleReset = () => {
   ruleFormRef && ruleFormRef.resetFields()
 }
 
+// 新增用户表单 Form dialog
+const userForm = $ref({
+  userName: '',
+  userEmail: '',
+  mobile: '',
+  job: '',
+  state: 1,
+  roleList: '',
+  deptId: ''
+})
+
+const rules = $ref({
+  userName: [
+    {required: true, message: '请输入名称', trigger: 'blur'},
+    {min: 3, max: 5, message: '请输入3-5位数的名称', trigger: 'blur'},
+  ],
+  region: [
+    {
+      required: true,
+      message: 'Please select Activity zone',
+      trigger: 'change',
+    },
+  ],
+})
+
+
+// Form dialog 显示和隐藏
+let userFromModalShow = $ref(false)
+
+
+// 新增 Form 用户表单
+const handleAddForm = () => {
+  userFromModalShow = true
+}
+
+// 获取 userForm ref
+const userFormRef = $ref(null)
+
+// 提交 Form 用户表单
+const handleSubmitForm = () => {
+
+}
+
+// 重置 Form 用户表单
+const handleResetForm = () => {
+  userFormRef && userFormRef.resetFields()
+}
 
 </script>
 
