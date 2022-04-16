@@ -354,7 +354,7 @@ const userForm = $ref({
   userEmail: '',
   mobile: '',
   job: '',
-  state: 1,
+  state: 3,
   roleList: '',
   deptId: ''
 })
@@ -362,15 +362,14 @@ const userForm = $ref({
 const rules = $ref({
   userName: [
     {required: true, message: '请输入名称', trigger: 'blur'},
-    {min: 3, max: 5, message: '请输入3-5位数的名称', trigger: 'blur'},
+    {min: 2, max: 5, message: '请输入3-5位数的名称', trigger: 'blur'},
   ],
-  region: [
-    {
-      required: true,
-      message: 'Please select Activity zone',
-      trigger: 'change',
-    },
+  userEmail: [
+    {required: true, message: '请输入邮箱', trigger: 'blur'},
   ],
+  mobile: [
+    {pattern: /1\d{10}/, message: '请输入正确的手机号 ', trigger: 'blur'},
+  ]
 })
 
 
