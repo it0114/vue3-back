@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite --mode dev",
+    "serve": "vite --mode dev",
     "build": "vite build",
     "preview": "vite preview"
   },
@@ -11,6 +12,7 @@
     "@element-plus/icons-vue": "^1.1.4",
     "axios": "^0.26.0",
     "dayjs": "^1.11.0",
+    "download": "^8.0.0",
     "e-icon-picker": "^2.0.9",
     "echarts": "^5.3.2",
     "element-plus": "^2.0.4",
