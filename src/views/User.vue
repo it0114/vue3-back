@@ -27,6 +27,7 @@
       <div class="action">
         <el-button type="primary" @click="handleAddForm">新增</el-button>
         <el-button type="danger" @click="handleBatchDelete">批量删除</el-button>
+        <el-button style="margin-left: auto" type="primary" @click="handleExportExcel">导出表格</el-button>
       </div>
       <el-table
           :data="userList"
@@ -149,6 +150,8 @@ import {
 } from 'vue'
 import dayjs from "dayjs";
 import {ElMessage} from "element-plus";
+import exportExcel from "../common/exportExcel"
+import _ from 'lodash'
 
 // 使用 $ref 可以直接用定义, 而不需要用 value 来改变
 // let count = $ref(0)
@@ -391,6 +394,19 @@ const handleSubmitForm = () => {
 // 重置 Form 用户表单
 const handleResetForm = () => {
   userFormRef && userFormRef.resetFields()
+}
+
+// 导出表格
+const handleExportExcel = () => {
+  let fields = {}
+  columns.forEach(item => {
+    fields[item.prop] = item.label
+  })
+  // 深拷贝数据 1
+  // let tableData = JSON.parse(JSON.stringify(userList));
+  // 深拷贝数据 2
+  let tableData = _.cloneDeep(userList)
+  exportExcel(tableData, fields, "用户人员名单");
 }
 
 </script>
