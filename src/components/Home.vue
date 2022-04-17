@@ -1,25 +1,23 @@
 <template>
   <div class="basic-layout">
     <div class="nav-side">
-      <div>
-        <div class="logo" v-show="!isCollapse">
-          <h1>Manager System</h1>
-        </div>
-        <el-menu
-            active-text-color="#2F7CE5"
-            background-color="#282A36"
-            class="el-menu-vertical-demo"
-            :default-active="activeMenu"
-            text-color="#fff"
-            @open="handleOpen"
-            :collapse="isCollapse"
-            @close="handleClose"
-            router
-        >
-          <!-- 递归生成菜单 -->
-          <TreeMenu :userMenu="userMenu"></TreeMenu>
-        </el-menu>
+      <div class="logo" v-show="!isCollapse">
+        <h1>Manager System</h1>
       </div>
+      <el-menu
+          active-text-color="#2F7CE5"
+          background-color="#282A36"
+          class="el-menu-vertical-demo"
+          :default-active="activeMenu"
+          text-color="#fff"
+          @open="handleOpen"
+          :collapse="isCollapse"
+          @close="handleClose"
+          router
+      >
+        <!-- 递归生成菜单 -->
+        <TreeMenu :userMenu="userMenu"></TreeMenu>
+      </el-menu>
     </div>
     <div class="content-right">
       <div class="nav-top">
@@ -93,14 +91,15 @@ export default {
       return location.hash.slice(1)
     }
   },
-  mounted() {
+  created() {
     try {
       this.isCollapse = this.$storage.getItem('isCollapse')
     } catch (e) {
       this.isCollapse = false
       console.log(e);
     }
-
+  },
+  mounted() {
     this.getNoticeCount()
     this.getMenuList()
     // console.log(this.userInfo)
@@ -170,9 +169,13 @@ export default {
       text-align: center;
     }
 
-    .el-menu {
+    .el-menu-vertical-demo {
       border-right: 0;
     }
+
+    //.el-menu-vertical-demo:not(.el-menu--collapse) {
+    //  width: 200px;
+    //}
   }
 
   .content-right {
