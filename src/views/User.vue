@@ -97,40 +97,39 @@
           <el-input v-model="userForm.job" placeholder="请输入岗位"></el-input>
         </el-form-item>
         <el-form-item label="状态" prop="state">
-
           <el-radio-group v-model="userForm.state" style="width: 100%">
             <el-radio border :label="1">在职</el-radio>
             <el-radio border :label="2">离职</el-radio>
             <el-radio border :label="3">试用期</el-radio>
           </el-radio-group>
-          <!--<el-select v-model="userForm.state" style="width: 100%">-->
-          <!--  <el-option :value="1" label="在职"></el-option>-->
-          <!--  <el-option :value="2" label="离职"></el-option>-->
-          <!--  <el-option :value="3" label="试用期"></el-option>-->
-          <!--</el-select>-->
-
         </el-form-item>
         <el-form-item label="系统角色" prop="roleList">
           <el-select
               v-model="userForm.roleList"
               style="width: 100%"
               placeholder="请选择对应角色"
+              multiple
+              clearable
+              filterable
           >
             <el-option
-                v-for="item in userForm.roleList"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
+                v-for="role in roleList"
+                :key="role._id"
+                :label="role.roleName"
+                :value="role._id"
             />
           </el-select>
         </el-form-item>
         <el-form-item label="所属部门" prop="deptId">
           <el-cascader
+              v-model="userForm.deptId"
               style="width: 100%"
-              :options="[]"
+              :options="deptList"
               placeholder="请选择所属部门"
-              :props="{checkStrictly : true,value:'_id',label:'deptName '}"
-              clearable/>
+              :props="{checkStrictly : true,value:'_id',label:'deptName'}"
+              clearable
+              filterable
+          />
         </el-form-item>
       </el-form>
       <template #footer>
@@ -147,6 +146,7 @@ import {
   reactive,
   onMounted,
   getCurrentInstance,
+  toRaw,
 } from 'vue'
 import dayjs from "dayjs";
 import {ElMessage} from "element-plus";
@@ -235,6 +235,8 @@ let pager = $ref({
   pageSize: 10, // 每页条数
   total: 20   // 总条数 (动态传入)
 })
+// 定义用户操作行为 (新增 / 编辑) 数据
+let action = $ref('add')
 // 批量删除勾选的列表
 let batchDeleteList = $ref([]) // 批量删除 id
 
@@ -245,7 +247,7 @@ let batchDeleteList = $ref([]) // 批量删除 id
 // console.log(getCurrentInstance());
 
 onMounted(async () => {
-  await getUserList()
+  await getUserList() // 获取用户列表
 })
 
 // 删除单条或者多条table数据
@@ -380,13 +382,40 @@ let userFromModalShow = $ref(false)
 // 新增 Form 用户表单
 const handleAddForm = () => {
   userFromModalShow = true
+  getRoleList() // 获取角色列表
+  getDeptList() // 获取部门列表
 }
 
 // 获取 userForm ref
 const userFormRef = $ref(null)
 
 // 提交 Form 用户表单
-const handleSubmitForm = () => {
+const handleSubmitForm = async () => {
+  // 1. 校验表单
+  if (!userFormRef) return
+  await userFormRef.validate(async (valid, fields) => {
+    if (valid) {
+      // userForm.userEmail += "@yam.com" // 会篡改元数据
+      let userEmail = toRaw(userForm.userEmail) // 防止篡改直接数据
+      userEmail += "@yam.com"
+      let params = {
+        ...toRaw(userForm),
+        userEmail,
+        action
+      }
+      // 2. 提交成功操作
+      let res = await $api.postUserSubmit(params)
+      if (res) {
+        ElMessage.success('新增用户成功')
+        handleResetForm() // 重置表单
+        userFromModalShow = false // 关闭弹框
+        await getUserList() // 刷新列表
+      }
+    } else {
+      console.log('error submit!', fields)
+      ElMessage.error('请检查输入内容是否正确')
+    }
+  })
 
 }
 
@@ -406,6 +435,19 @@ const handleExportExcel = () => {
   // 深拷贝数据 2
   let tableData = _.cloneDeep(userList)
   exportExcel(tableData, fields, "用户人员名单");
+}
+
+let deptList = $ref([])
+// 获取部门列表
+const getDeptList = async () => {
+  deptList = await $api.getDeptList()
+}
+
+
+let roleList = $ref([])
+// 获取角色列表
+const getRoleList = async () => {
+  roleList = await $api.getRoleList()
 }
 
 </script>
