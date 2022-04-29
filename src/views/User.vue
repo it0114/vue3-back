@@ -21,7 +21,6 @@
           <el-button @click="handleReset">重置</el-button>
         </el-form-item>
       </el-form>
-
     </div>
     <div class="base-table">
       <div class="action">
@@ -33,7 +32,7 @@
           :data="userList"
           border
           stripe
-          height="400"
+          :height="tableHeight"
           tooltip-effect="dark"
           style="width: 100%;"
           class="el-table-box"
@@ -147,6 +146,8 @@ import {
   onMounted,
   getCurrentInstance,
   toRaw,
+  nextTick,
+  computed
 } from 'vue'
 import dayjs from "dayjs";
 import {ElMessage} from "element-plus";
@@ -166,12 +167,39 @@ import _ from 'lodash'
 // console.log(reactive1.b);  // 获取
 // console.log($$(reactive1)); // 封装 proxy
 
+onMounted(async () => {
+  await getUserList() // 获取用户列表
+  await getRoleList() // 获取角色列表
+  await getDeptList() // 获取部门列表
+  await getAutoHeight() // 动态计算 table 高度
+})
+
 // 用户表单
 let user = $ref({
   userId: '',
   userName: '',
   state: 0
 })
+
+// table 高度
+let tableHeight = $ref(100)
+// 动态计算高度
+const getAutoHeight = () => {
+  let el = document.querySelector(".user-manage")
+  let form = document.querySelector(".query-form")
+  let action = document.querySelector(".action")
+  nextTick(() => {
+    // 整体高度 - action 和 form 的高度, 并且减去padding  120 px
+    tableHeight = el.parentNode.clientHeight - action.clientHeight - form.clientHeight - 120
+  });
+}
+
+// 窗口发生改变, 重新计算 table 高度
+window.onresize = () => {
+  getAutoHeight()
+}
+
+
 // 用户 table 表头
 let columns = $ref([
   {
@@ -246,9 +274,6 @@ let batchDeleteList = $ref([]) // 批量删除 id
 // const {ctx} = getCurrentInstance()
 // console.log(getCurrentInstance());
 
-onMounted(async () => {
-  await getUserList() // 获取用户列表
-})
 
 // 删除单条或者多条table数据
 const handleDelete = async (row) => {
@@ -321,7 +346,6 @@ const getUserList = async () => {
     userList = list
     pager.total = page.total
     // pager.pageNum = page.pageNum
-
   } catch (e) {
     console.log(e);
   }
@@ -382,8 +406,6 @@ let userFromModalShow = $ref(false)
 // 新增 Form 用户表单
 const handleAddForm = () => {
   userFromModalShow = true
-  getRoleList() // 获取角色列表
-  getDeptList() // 获取部门列表
 }
 
 // 获取 userForm ref
@@ -406,7 +428,8 @@ const handleSubmitForm = async () => {
       // 2. 提交成功操作
       let res = await $api.postUserSubmit(params)
       if (res) {
-        ElMessage.success('新增用户成功')
+        let msg = action === "add" ? '新增' : '编辑'
+        ElMessage.success(msg + '成功')
         handleResetForm() // 重置表单
         userFromModalShow = false // 关闭弹框
         await getUserList() // 刷新列表
@@ -422,6 +445,16 @@ const handleSubmitForm = async () => {
 // 重置 Form 用户表单
 const handleResetForm = () => {
   userFormRef && userFormRef.resetFields()
+}
+
+// 编辑表格某一条数据
+const handleEdit = (row) => {
+  action = "edit"
+  console.log(row);
+  userFromModalShow = true // 打开form弹框
+  nextTick(() => {
+    Object.assign(userForm, row)
+  })
 }
 
 // 导出表格
