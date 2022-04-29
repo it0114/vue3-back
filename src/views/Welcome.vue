@@ -11,13 +11,12 @@
     </div>
   </div>
 </template>
-<script setup>
-</script>
 
 <style scoped lang="scss">
 .welcome {
   height: 100%;
   background: #fff;
+
   .content {
     display: flex;
     justify-content: space-between;
@@ -27,16 +26,19 @@
 
     .left {
       flex: 1;
-      .sub-title{
+
+      .sub-title {
         font-size: 24px;
         color: #333;
       }
-      .title{
+
+      .title {
         font-size: 42px;
         color: #64B2F7;
         font-weight: 600;
       }
-      .desc{
+
+      .desc {
         font-size: 16px;
         color: #666;
       }
@@ -45,7 +47,7 @@
 
     .right {
       width: 500px;
-      height:300px;
+      height: 300px;
       background: url("../assets/images/welcome.png") no-repeat 100% 100%;
       background-size: cover;
     }

@@ -194,9 +194,15 @@ const getAutoHeight = () => {
   });
 }
 
+let flag = $ref(true)
 // 窗口发生改变, 重新计算 table 高度
 window.onresize = () => {
+  if (!flag) return
   getAutoHeight()
+  flag = false;
+  setTimeout(() => {
+    flag = true;
+  }, 100)
 }
 
 
@@ -405,7 +411,9 @@ let userFromModalShow = $ref(false)
 
 // 新增 Form 用户表单
 const handleAddForm = () => {
+  handleResetForm() // 重置表单
   userFromModalShow = true
+  action = 'add'
 }
 
 // 获取 userForm ref
@@ -450,7 +458,7 @@ const handleResetForm = () => {
 // 编辑表格某一条数据
 const handleEdit = (row) => {
   action = "edit"
-  console.log(row);
+  // console.log(row);
   userFromModalShow = true // 打开form弹框
   nextTick(() => {
     Object.assign(userForm, row)
